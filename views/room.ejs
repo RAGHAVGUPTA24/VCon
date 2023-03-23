@@ -64,7 +64,7 @@
                         <i class="fas fa-user-plus"></i>
                         <span>Invite</span>
                     </div>
-                    <div class="main_controls_button">
+                    <div class="main_controls_button" onclick="showparticipants()">
                         <i class="fas fa-user-friends"></i>
                         <span>Participants</span>
                     </div>
@@ -83,19 +83,28 @@
                 </div>
             </div>
         </div>
-        <div class="main_right" id="chat">
-            <div class="main_right_header">
-                <h6>Chat Area</h6>
+        <div class="main_right" id="drawer" hidden>
+            <div class="main_right main_right_sub" id="participants" hidden>
+                <div class="main_right_header">
+                    <h6>Participants</h6>
+                </div>
+                <div class="main__chat_window" id="main__participant_window">
+                    <ul class="participant-list">
+                    </ul>
+                </div>
             </div>
-            <div class="main__chat_window" id="main__chat_window">
-                <ul class="messages" id="messageadd">
-
-                </ul>
-
-            </div>
-            <div>
-                <div class="main__message_container">
-                    <input type="text" id="chat_message" onkeydown="sendmessage(this)" placeholder="Type message here.." />
+            <div class="main_right main_right_sub" id="chat" hidden>
+                <div class="main_right_header">
+                    <h6>Chat Area</h6>
+                </div>
+                <div class="main__chat_window" id="main__chat_window">
+                    <ul class="messages" id="messageadd">
+                    </ul>
+                </div>
+                <div>
+                    <div class="main__message_container">
+                        <input type="text" id="chat_message" onkeydown="sendmessage(this)" placeholder="Type message here.." />
+                    </div>
                 </div>
             </div>
         </div>

@@ -1,17 +1,18 @@
 const socket = io("/");
-const main__chat__window = document.getElementById("main__chat_window");
 const videoGrids = document.getElementById("video-grids");
 const myVideo = document.createElement("video");
-const chat = document.getElementById("chat");
-OtherUsername = "";
-chat.hidden = true;
-myVideo.muted = true;
 
-window.onload = () => {
-    $(document).ready(function() {
-        $("#getCodeModal").modal("show");
-    });
-};
+const drawer = document.getElementById("drawer");
+const chat = document.getElementById("chat");
+const participants = document.getElementById("participants");
+const participant_list = participants.querySelector("ul.participant-list")
+
+OtherUsername = "";
+
+document.addEventListener('DOMContentLoaded', () => {
+    $("#getCodeModal").modal("show");
+    myVideo.muted = true;
+});
 
 var peer = new Peer(undefined, {
     path: "/peerjs",
@@ -86,6 +87,16 @@ socket.on("AddName", (username) => {
     console.log(username);
 });
 
+socket.on("participants", participants => {
+    while(participant_list.lastElementChild)
+        participant_list.lastElementChild.remove();
+    for(const participant of participants) {
+        const item = document.createElement("li");
+        item.innerText = participant;
+        participant_list.append(item);
+    }
+});
+
 const RemoveUnusedDivs = () => {
     //
     alldivs = videoGrids.getElementsByTagName("div");
@@ -147,12 +158,31 @@ const VideomuteUnmute = () => {
 };
 
 const showchat = () => {
-    if (chat.hidden == false) {
-        chat.hidden = true;
-    } else {
-        chat.hidden = false;
+    if(!chat.hidden && !drawer.hidden) {
+        drawer.hidden = true;
+    }
+    else {
+        if(chat.hidden) {
+            participants.hidden = true;
+            chat.hidden = false;
+        }
+        if(drawer.hidden)
+            drawer.hidden = false;
     }
 };
+const showparticipants = () => {
+    if(!participants.hidden && !drawer.hidden) {
+        drawer.hidden = true;
+    }
+    else {
+        if(participants.hidden) {
+            chat.hidden = true;
+            participants.hidden = false;
+        }
+        if(drawer.hidden)
+            drawer.hidden = false;
+    }
+}
 
 const addVideoStream = (videoEl, stream, name) => {
     videoEl.srcObject = stream;

@@ -60,10 +60,17 @@ app.post("/leave", (req, res) => {
     res.redirect("/");
 });
 
+const participants = new Map();
+
 io.on("connection", (socket) => {
     socket.on("join-room", (roomId, id, myname) => {
         socket.join(roomId);
-        socket.to(roomId).broadcast.emit("user-connected", id, myname);
+        io.to(roomId).emit("user-connected", id, myname);
+        participants.set(socket.id, myname);
+        io.to(roomId).emit(
+            "participants",
+            Array.from(participants.values()).sort((a, b) => a.localeCompare(b))
+        );
 
         socket.on("messagesend", (message) => {
             console.log(message);
@@ -72,11 +79,16 @@ io.on("connection", (socket) => {
 
         socket.on("tellName", (myname) => {
             console.log(myname);
-            socket.to(roomId).broadcast.emit("AddName", myname);
+            io.to(roomId).emit("AddName", myname);
         });
 
         socket.on("disconnect", () => {
-            socket.to(roomId).broadcast.emit("user-disconnected", id);
+            io.to(roomId).emit("user-disconnected", id);
+            participants.delete(socket.id);
+            io.to(roomId).emit(
+                "participants",
+                Array.from(participants.values()).sort((a, b) => a.localeCompare(b))
+            );
         });
     });
 });
