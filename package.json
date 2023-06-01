@@ -1,6 +1,6 @@
 {
-    "name": "zoom-clone-2.0",
-    "version": "1.0.0",
+    "name": "vcon",
+    "version": "2.3.0",
     "description": "",
     "main": "server.js",
     "scripts": {

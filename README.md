@@ -1,6 +1,7 @@
-# zoom-clone-2.0
+# vcon
 
 ## Features
+
 - Inro page (Host a meeting or join a meeting page)
 - Name Feature(You can see names of participants)
 - Video and Voice chat
@@ -9,17 +10,10 @@
 - close/Open Video
 - Mute/UnMute Audio
 
+## Test
 
-
-## Test 
 - Windows
 
-## How to run
-- git clone 
-- cd zoom-clone-2.0
-- npm server.js
-- Go to LocalHost:3030
-
-
 ## Wanna allow Other people to join
+
 - Use ngrok or deploy your app on heroku
