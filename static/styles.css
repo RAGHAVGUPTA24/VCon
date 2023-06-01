@@ -106,7 +106,7 @@ video {
 .leave_red {
     color: white;
     background-color: red;
-    border-radius: 5%;
+    border-radius: 1%;
 }
 
 .leave-button {
@@ -114,8 +114,8 @@ video {
     display: flex;
     justify-content: space-evenly;
     align-items: center;
-    padding: 1em;
-    border-radius: 5%;
+    padding: 0.5em;
+    border-radius: 25%;
     background-color: #9e1d1d;
     color: white;
 }
@@ -124,7 +124,7 @@ video {
 }
 
 .main__message_container {
-    padding: 20px 15px;
+    padding: 10px 15px;
     display: flex;
 }
 
@@ -143,7 +143,7 @@ video {
 
 .main_controls_button:hover {
     background-color: #686666;
-    border-radius: 25px;
+    border-radius: 15px;
 }
 
 .main_right_header {
@@ -190,9 +190,9 @@ ul.participant-list li:not(:last-child) {
 
 .main_right_header h6 {
     animation: animate 20s linear infinite;
-    background-image: linear-gradient(to right, #f00, #ff0, #0ff, #0f0, #00f);
+    background-image: linear-gradient(to right, royalblue, #ff0, #0ff, #0f0, #00f);
     background-size: 1000%;
-    padding: 1em;
+    padding: 0.75em;
 }
 
 @keyframes animate {
