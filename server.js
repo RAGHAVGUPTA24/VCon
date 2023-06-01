@@ -1,19 +1,18 @@
+const url = require("url");
+const path = require("path");
+
 const express = require("express");
+const cookieParser = require('cookie-parser');
+const { v4: uuidv4 } = require("uuid");
+const { ExpressPeerServer } = require("peer");
+
 const app = express();
 const server = require("http").Server(app);
-const { v4: uuidv4 } = require("uuid");
 const io = require("socket.io")(server);
-const { ExpressPeerServer } = require("peer");
-const url = require("url");
-const peerServer = ExpressPeerServer(server, {
-    debug: true,
-});
-const path = require("path");
-const cookieParser = require('cookie-parser');
 
 app.set("view engine", "ejs");
 app.use("/public", express.static(path.join(__dirname, "static")));
-app.use("/peerjs", peerServer);
+app.use("/peerjs", ExpressPeerServer(server, { debug: true }));
 app.use(cookieParser());
 
 app.get("/", (req, res) => {
@@ -64,8 +63,9 @@ const participants = new Map();
 
 io.on("connection", (socket) => {
     socket.on("join-room", (roomId, id, myname) => {
+        console.log(socket.id, "connect in", roomId);
         socket.join(roomId);
-        io.to(roomId).emit("user-connected", id, myname);
+        socket.to(roomId).emit("user-connected", id, myname);
         participants.set(socket.id, myname);
         io.to(roomId).emit(
             "participants",
@@ -73,17 +73,18 @@ io.on("connection", (socket) => {
         );
 
         socket.on("messagesend", (message) => {
-            console.log(message);
+            console.log(`${myname} (${socket.id}):`, message);
             io.to(roomId).emit("createMessage", message);
         });
 
         socket.on("tellName", (myname) => {
-            console.log(myname);
-            io.to(roomId).emit("AddName", myname);
+            console.log(socket.id, "associated with", myname);
+            socket.to(roomId).emit("AddName", myname);
         });
 
         socket.on("disconnect", () => {
-            io.to(roomId).emit("user-disconnected", id);
+            console.log(socket.id, "disconnect");
+            socket.to(roomId).emit("user-disconnected", id);
             participants.delete(socket.id);
             io.to(roomId).emit(
                 "participants",
