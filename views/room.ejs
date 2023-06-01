@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="http://localhost:3030/public/styles.css">
+    <link rel="stylesheet" href="/public/styles.css">
     <script src="https://unpkg.com/peerjs@1.3.1/dist/peerjs.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/peerjs/1.3.1/peerjs.min.js.map"></script>
     <script src="/socket.io/socket.io.js"></script>
@@ -49,14 +49,14 @@
             </div>
             <div class="main_controls">
                 <div class="main_controls_block">
-                    <div class="main_controls_button" id="mic" onclick="muteUnmute()">
-                        <i class="fas fa-microphone-slash"></i>
-                        <span>Mute</span>
+                    <div class="main_controls_button" id="microphone" onclick="toggleButton(this)">
+                        <i class="icon fas fa-microphone-slash"></i>
+                        <span class="text">Mute</span>
                     </div>
 
-                    <div class="main_controls_button" id="video" onclick="VideomuteUnmute()">
-                        <i class="fas fa-video-slash"></i>
-                        <span>Stop Video</span>
+                    <div class="main_controls_button" id="video" onclick="toggleButton(this)">
+                        <i class="icon fas fa-video-slash"></i>
+                        <span class="text">Hide Video</span>
                     </div>
                 </div>
                 <div class="main_controls_block">
@@ -64,11 +64,11 @@
                         <i class="fas fa-user-plus"></i>
                         <span>Invite</span>
                     </div>
-                    <div class="main_controls_button" onclick="showparticipants()">
+                    <div class="main_controls_button" onclick="showParticipants()">
                         <i class="fas fa-user-friends"></i>
                         <span>Participants</span>
                     </div>
-                    <div class="main_controls_button" onclick="showchat()">
+                    <div class="main_controls_button" onclick="showChat()">
                         <i class="fas fa-comment-alt"></i>
                         <span>Chat</span>
                     </div>
@@ -109,7 +109,7 @@
             </div>
         </div>
     </div>
-    <script src="http://localhost:3030/public/main.js"></script>
+    <script src="/public/main.js"></script>
 </body>
 
 </html>
