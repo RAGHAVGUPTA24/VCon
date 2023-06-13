@@ -10,10 +10,8 @@
 - close/Open Video
 - Mute/UnMute Audio
 
-## Test
 
-- Windows
 
 ## Wanna allow Other people to join
+use invite link for joining with other people
 
-- Use ngrok or deploy your app on heroku
